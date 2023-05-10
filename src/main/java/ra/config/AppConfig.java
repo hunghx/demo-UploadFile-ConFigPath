@@ -23,6 +23,7 @@ import java.io.IOException;
 @ComponentScan(basePackages = {"ra.controller"})
 public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     private String pathUpload = "E:\\JAVACORE\\Java_MD4_Session1_SpringMVC_CRUD\\demoSring\\src\\main\\webapp\\assets\\image\\";
+    private String  pathCss = "E:\\JAVACORE\\Java_MD4_Session1_SpringMVC_CRUD\\demoSring\\src\\main\\webapp\\assets\\css\\";
     private ApplicationContext applicationContext;
     @Bean
     public ViewResolver viewResolver() {
@@ -44,8 +45,8 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/image/**")
-                .addResourceLocations("file:" + pathUpload);
+        registry.addResourceHandler("/image/**", "/css/**")
+                .addResourceLocations("classpath:/assets/image/", "classpath:/assets/css/");
 
     }
 }
