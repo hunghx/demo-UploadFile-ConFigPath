@@ -13,18 +13,19 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping("/upload")
-public class UplaodController {
+public class UploadController {
+    // lấy đường dẫn upload ảnh tuyệt đối
+    private String pathUpload = "C:\\Users\\hung1\\OneDrive\\Desktop\\demo-UploadFile-ConFigPath\\src\\main\\webapp\\assets\\uploads\\";
     @PostMapping("")
     public String upload(@RequestParam("image")MultipartFile image, Model model) throws IOException {
         // upload file
-        String uploadPath = "E:\\JAVACORE\\Java_MD4_Session1_SpringMVC_CRUD\\demoSring\\src\\main\\webapp\\assets\\image";
-        File file = new File(uploadPath);
+        File file = new File(pathUpload);
         if (!file.exists()) {
             file.mkdirs();
         }
         String fileName = image.getOriginalFilename();
         // coppy file upload đén thư mục chỉ đinh
-        FileCopyUtils.copy(image.getBytes(),new File(uploadPath+File.separator + fileName));
+        FileCopyUtils.copy(image.getBytes(),new File(pathUpload+File.separator + fileName));
         model.addAttribute("fileName",fileName);
         return "image";
     }

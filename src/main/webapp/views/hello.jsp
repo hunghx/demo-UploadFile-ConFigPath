@@ -16,7 +16,7 @@
 <h2>${id}</h2>
 <h3>${name}</h3>
 <h2>Form upload file</h2>
-<form action="<%=request.getContextPath()%>/upload" method="post" enctype="multipart/form-data">
+<form action="<%=request.getContextPath()%>/firebase/uploadToFirebase" method="post" enctype="multipart/form-data">
     <input type="file" name="image">
     <button type="submit">Upload</button>
 </form>

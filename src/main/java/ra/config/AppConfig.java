@@ -4,6 +4,7 @@ package ra.config;
 
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -16,14 +17,16 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import javax.servlet.ServletContext;
 import java.io.IOException;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"ra.controller"})
+@ComponentScan(basePackages = {"ra"})
 public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
-    private String pathUpload = "E:\\JAVACORE\\Java_MD4_Session1_SpringMVC_CRUD\\demoSring\\src\\main\\webapp\\assets\\image\\";
-    private String  pathCss = "E:\\JAVACORE\\Java_MD4_Session1_SpringMVC_CRUD\\demoSring\\src\\main\\webapp\\assets\\css\\";
+    @Autowired
+    private ServletContext servletContext;
+    private String pathUpload = "C:\\Users\\hung1\\OneDrive\\Desktop\\demo-UploadFile-ConFigPath\\src\\main\\webapp\\assets\\uploads\\";
     private ApplicationContext applicationContext;
     @Bean
     public ViewResolver viewResolver() {
@@ -43,10 +46,11 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         resolver.setMaxUploadSizePerFile(52428800);
         return resolver;
     }
+    // xử lí đường dẫn
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/image/**", "/css/**")
-                .addResourceLocations("classpath:/assets/image/", "classpath:/assets/css/");
+        registry.addResourceHandler("/image/**", "/css/**","/upload/**")
+                .addResourceLocations("classpath:/assets/image/", "classpath:/assets/css/","file:"+pathUpload);
 
     }
 }
